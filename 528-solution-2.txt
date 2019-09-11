@@ -1,0 +1,66 @@
+class Solution {
+    private class Node {
+        int weight;
+        int index;
+        public Node(int weight, int index) {
+            this.weight = weight;
+            this.index = index;
+        }
+    }
+
+    private class Range {
+        int start;
+        int index;
+        public Range(int start, int index) {
+            this.start = start;
+            this.index = index;
+        }
+    }
+
+    List<Range> ranges;
+    int sum = 0;
+
+    public Solution(int[] w) {
+        ranges = buildRanges(w);
+        sum = IntStream.of(w).sum();
+    }
+
+    private List<Range> buildRanges(int[] w) {
+        Queue<Node> minHeap = new PriorityQueue<>((o1, o2) -> o1.weight - o2.weight);
+        for (int i = 0; i < w.length; i++) {
+            Node crt = new Node(w[i], i);
+            minHeap.add(crt);
+        }
+        
+        List<Range> result = new ArrayList<>();
+        int rangeStart = 0;
+        for (int i = 0; i < minHeap.size(); i++) {
+            Node topNode = minHeap.poll();
+            result.add(new Range(rangeStart, topNode.index));
+            rangestart = rangestart + topNode.weight - 1;
+        }
+
+        return Collections.sort(result, (o1, o2) -> o1.start - o2.start);
+    }
+    
+    public int pickIndex() {
+        Random random = new Random();
+        int randNum = random.nextInt(this.sum);
+        // find the first element that is smaller than or equal to randNum
+        int start = 0;
+        int end = this.ranges.size() - 1;
+        int pos = -1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            int midVal = this.ranges.get(mid);
+            if (midVal <= randNum) {
+                pos = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return this.ranges.get(pos).index;
+    }
+}
