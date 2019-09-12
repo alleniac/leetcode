@@ -1,0 +1,52 @@
+Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], 
+reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+
+Note:
+
+1. If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. 
+For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+2. All airports are represented by three capital letters (IATA code).
+3. You may assume all tickets form at least one valid itinerary.
+
+Example 1:
+
+Input: [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
+Output: ["JFK", "MUC", "LHR", "SFO", "SJC"]
+
+Example 2:
+
+Input: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
+Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
+             But it is larger in lexical order.
+
+
+class Solution {
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, Queue<String>> fromToTo = new HashMap<>();
+        for (List<String> t : tickets) {
+            String from = t.get(0);
+            String to = t.get(1);
+            if (!fromToTo.containsKey(from)) {
+                fromToTo.put(from, new PriorityQueue<String>());
+            }
+            Queue<String> dests = fromToTo.get(from);
+            dests.add(to);
+        }
+
+        List<String> result = new ArrayList<>();
+        dfs(fromToTo, "JFK", result);
+        
+        Collections.reverse(result);
+        
+        return result;
+    }
+
+    private void dfs(Map<String, Queue<String>> fromToTo, String from, List<String> result) {
+        Queue<String> dests = fromToTo.get(from);
+        while (dests != null && !dests.isEmpty()) {
+            dfs(fromToTo, dests.poll(), result);
+        }
+        result.add(from);
+    }
+}
