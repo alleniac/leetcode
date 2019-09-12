@@ -1,0 +1,229 @@
+public class Solution0930 {
+    // find the target
+    // f(a[pos]) == target
+    public int find0(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid == target) {
+                return mid;
+            } else if (fMid < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the last appearance of the target
+    // f(a[pos]) <= target < f(a[pos + 1])
+    public int find1(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid <= target) {
+                pos = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the first element that is less than the target
+    // f(a[pos]) < target <= f(a[pos + 1])
+    public int find2(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid < target) {
+                pos = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the first element that is larger than target
+    // f(a[pos - 1]) <= target < f(a[pos])
+    public int find3(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid > target) {
+                pos = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the first appearance of the target
+    // f(a[pos - 1]) < target <= f(a[pos])
+    public int find4(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid >= target) {
+                pos = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the last appearance of the target
+    // f(a[pos]) >= target > f(a[pos + 1])
+    public int find5(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid >= target) {
+                pos = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the last element that is larger than the target
+    // f(a[pos]) > target >= f(a[pos + 1])
+    public int find6(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid > target) {
+                pos = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the first element that is smaller than the target
+    // f(a[pos - 1]) >= target > f(a[pos])
+    public int find7(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid < target) {
+                pos = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return pos;
+    }
+
+    // find the first appearance of the target
+    // f(a[pos - 1]) > target >= f(a[pos])
+    public int find8(int[] a, int target) {
+        int start = 0;
+        int end = a.length - 1;
+        int pos = -1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int fMid = a[mid];
+            if (fMid <= target) {
+                pos = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return pos;
+    }
+
+    public static void main(String[] args) {
+        Solution0930 soln = new Solution0930();
+
+        // increasing
+        int[] a = new int[]{1,2,3,3,3,3,4,4,5,6,7,8,9};
+
+        int result0 = soln.find0(a, 5);
+        System.out.println(result0); // should be 8
+
+        int result1 = soln.find1(a, 3);
+        System.out.println(result1); // should be 5
+
+        int result2 = soln.find2(a, 3);
+        System.out.println(result2); // should be 1
+
+        int result3 = soln.find3(a, 3);
+        System.out.println(result3); // should be 6
+
+        int result4 = soln.find4(a, 3);
+        System.out.println(result4); // should be 2
+
+        // decreasing
+        int[] b = new int[]{5,4,4,3,2,2,2,2,1,1,0};
+
+        int result5 = soln.find5(b, 2);
+        System.out.println(result5); // should be 7
+
+        int result6 = soln.find6(b, 1);
+        System.out.println(result6); // should be 7
+
+        int result7 = soln.find7(b, 2);
+        System.out.println(result7); // should be 8
+
+        int result8 = soln.find8(b, 2);
+        System.out.println(result8); // should be 4
+    }
+}
+
