@@ -1,66 +1,36 @@
 class Solution {
-    private class Node {
-        int weight;
-        int index;
-        public Node(int weight, int index) {
-            this.weight = weight;
-            this.index = index;
-        }
-    }
-
-    private class Range {
-        int start;
-        int index;
-        public Range(int start, int index) {
-            this.start = start;
-            this.index = index;
-        }
-    }
-
-    List<Range> ranges;
-    int sum = 0;
+    int[] sum;
+    int global;
 
     public Solution(int[] w) {
-        ranges = buildRanges(w);
-        sum = IntStream.of(w).sum();
-    }
-
-    private List<Range> buildRanges(int[] w) {
-        Queue<Node> minHeap = new PriorityQueue<>((o1, o2) -> o1.weight - o2.weight);
+        this.sum = new int[w.length];
         for (int i = 0; i < w.length; i++) {
-            Node crt = new Node(w[i], i);
-            minHeap.add(crt);
+            if (i == 0) {
+                sum[i] = w[i];
+            } else {
+                sum[i] = sum[i - 1] + w[i];
+            }
         }
-        
-        List<Range> result = new ArrayList<>();
-        int rangeStart = 0;
-        for (int i = 0; i < minHeap.size(); i++) {
-            Node topNode = minHeap.poll();
-            result.add(new Range(rangeStart, topNode.index));
-            rangestart = rangestart + topNode.weight;
-        }
-
-        return Collections.sort(result, (o1, o2) -> o1.start - o2.start);
+        this.global = sum[sum.length - 1];
     }
-    
+
     public int pickIndex() {
         Random random = new Random();
-        int randNum = random.nextInt(this.sum);
+        int randNum = Math.abs(random.nextInt() % this.global);
         // find the first element that is smaller than or equal to randNum
         int start = 0;
-        int end = this.ranges.size() - 1;
+        int end = this.sum.length - 1;
         int pos = -1;
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            int midVal = this.ranges.get(mid);
-            if (midVal <= randNum) {
+            int midValue = this.sum[mid];
+            if (midValue < randNum) {
                 pos = mid;
                 start = mid + 1;
             } else {
                 end = mid - 1;
             }
         }
-
-        return this.ranges.get(pos).index;
+        return pos;
     }
 }
