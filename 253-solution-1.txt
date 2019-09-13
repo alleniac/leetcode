@@ -1,0 +1,30 @@
+class Solution {
+    private class Interval {
+        int start;
+        int end;
+        public Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public int minMeetingRooms(int[][] intervals) {
+        List<Interval> input = new ArrayList<>();
+        for (int[] interval : intervals) {
+            input.add(new Interval(interval[0], interval[1]));
+        }
+
+        Collections.sort(input, (o1, o2) -> o1.start - o2.start);
+
+        PriorityQueue<Interval> minHeap = new PriorityQueue<>((o1, o2) -> o1.end - o2.end);
+
+        for (Interval interval : input) {
+            if (!minHeap.isEmpty() && minHeap.peek().end <= interval.start) {
+                minHeap.poll();
+            }
+            minHeap.add(interval);
+        }
+
+        return minHeap.size();
+    }
+}
