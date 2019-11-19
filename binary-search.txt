@@ -1,3 +1,9 @@
+Note: 
+* f(mid) is a function converting mid to a value related (or compared) to target.
+* The following f(a[pos]) should all be changed to f(mid), f(a[pos + 1]) -> f(mid + 1), so on so forth.
+For these examples, f(mid) happen to be a[mid]. But for many other examples like LeetCode 410, the f(mid) could be another function
+converting mid to a value related (or compared) to target.
+
 public class Solution0930 {
     // find the target
     // f(a[pos]) == target
