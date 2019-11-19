@@ -1,12 +1,11 @@
 Note: 
 * f(mid) is a function converting mid to a value related (or compared) to target.
-* The following f(a[pos]) should all be changed to f(mid), f(a[pos + 1]) -> f(mid + 1), so on so forth.
-For these examples, f(mid) happen to be a[mid]. But for many other examples like LeetCode 410, the f(mid) could be another function
+* For these examples, f(mid) happen to be a[mid]. But for many other examples like LeetCode 410, the f(mid) could be another function
 converting mid to a value related (or compared) to target.
 
 public class Solution0930 {
     // find the target
-    // f(a[pos]) == target
+    // a[pos] == target
     public int find0(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -28,7 +27,7 @@ public class Solution0930 {
     }
 
     // find the last appearance of the target
-    // f(a[pos]) <= target < f(a[pos + 1])
+    // a[pos] <= target < a[pos + 1]
     public int find1(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -49,7 +48,7 @@ public class Solution0930 {
     }
 
     // find the first element that is less than the target
-    // f(a[pos]) < target <= f(a[pos + 1])
+    // a[pos] < target <= a[pos + 1]
     public int find2(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -70,7 +69,7 @@ public class Solution0930 {
     }
 
     // find the first element that is larger than target
-    // f(a[pos - 1]) <= target < f(a[pos])
+    // a[pos - 1] <= target < a[pos]
     public int find3(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -91,7 +90,7 @@ public class Solution0930 {
     }
 
     // find the first appearance of the target
-    // f(a[pos - 1]) < target <= f(a[pos])
+    // a[pos - 1] < target <= a[pos]
     public int find4(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -112,7 +111,7 @@ public class Solution0930 {
     }
 
     // find the last appearance of the target
-    // f(a[pos]) >= target > f(a[pos + 1])
+    // a[pos] >= target > a[pos + 1]
     public int find5(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -133,7 +132,7 @@ public class Solution0930 {
     }
 
     // find the last element that is larger than the target
-    // f(a[pos]) > target >= f(a[pos + 1])
+    // a[pos] > target >= a[pos + 1]
     public int find6(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -154,7 +153,7 @@ public class Solution0930 {
     }
 
     // find the first element that is smaller than the target
-    // f(a[pos - 1]) >= target > f(a[pos])
+    // a[pos - 1] >= target > a[pos]
     public int find7(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
@@ -175,7 +174,7 @@ public class Solution0930 {
     }
 
     // find the first appearance of the target
-    // f(a[pos - 1]) > target >= f(a[pos])
+    // a[pos - 1] > target >= a[pos]
     public int find8(int[] a, int target) {
         int start = 0;
         int end = a.length - 1;
