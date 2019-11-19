@@ -1,3 +1,4 @@
+import math
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
         def count(nums, m, mid):
@@ -13,6 +14,8 @@ class Solution:
         largest = max(nums)
         if m == 1:
             return total
+        # decreasing, f(pos - 1) > target >= f(pos)
+        # where f() is `count()`, target is m
         start = largest
         end = total
         pos = -1
